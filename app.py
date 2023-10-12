@@ -50,6 +50,22 @@ def craete_comment():
     comments.append(new_comment)
     return jsonify({'Success': new_comment})
 
+# -U- update comment
+@app.route('/comment/<id>', methods=['PUT'])
+def update_comment(id):
+    a_comment = None
+
+    for comment in comments:
+        if int(comment['id']) == int(id):
+            a_comment = comment
+            break
+    
+    if a_comment == None:
+        return jsonify({'error:': 'comment not found'})
+    
+    a_comment['comment'] = request.json['comment']
+    return jsonify({'updated': a_comment})
+
 
 
 if __name__ == '__main__':
