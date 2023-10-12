@@ -66,7 +66,21 @@ def update_comment(id):
     a_comment['comment'] = request.json['comment']
     return jsonify({'updated': a_comment})
 
+# -D- delete comment
+@app.route('/comment/<id>', methdos=['DELETE'])
+def delete_comment(id):
+    a_comment = None
 
+    for comment in comments:
+        if int(comment['id']) == int(id):
+            a_comment = comment
+            break
+
+    if a_comment == None:
+        return jsonify({'error:': 'comment not found'})
+    
+    comments.remove(a_comment)
+    return jsonify("Deleted successfully")
 
 if __name__ == '__main__':
     app.run(port=5002)
