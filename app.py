@@ -67,7 +67,7 @@ def update_comment(id):
     return jsonify({'updated': a_comment})
 
 # -D- delete comment
-@app.route('/comment/<id>', methdos=['DELETE'])
+@app.route('/comment/<id>', methods=['DELETE'])
 def delete_comment(id):
     a_comment = None
 
