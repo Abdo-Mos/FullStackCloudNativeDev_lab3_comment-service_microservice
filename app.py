@@ -3,8 +3,12 @@ import requests
 
 app = Flask(__name__)
 
+# URL_usr_req  = 'https://userservicecontainer.wonderfulocean-aa423ae1.canadacentral.azurecontainerapps.io/user/'
+# URL_post_req = 'https://postservicecontainer.wonderfulocean-aa423ae1.canadacentral.azurecontainerapps.io/post/'
+
 URL_usr_req  = 'http://127.0.0.1:5000/user/'
 URL_post_req = 'http://127.0.0.1:5001/post/'
+
 
 comments = [
     {"id": 1, "user_id": 1, "post_id": 2, "comment": "Amazing post!"},
@@ -25,11 +29,11 @@ def get_by_id(id):
             comment_info = comment
             break
     
-    usr_req_res = requests.get(f'{URL_usr_req}{comment_info["user_id"]}').json()
-    post_req_res = requests.get(f'{URL_post_req}{comment_info["post_id"]}').json()
+    usr_req_res = requests.get(f'{URL_usr_req}{comment_info["user_id"]}')
+    post_req_res = requests.get(f'{URL_post_req}{comment_info["post_id"]}')
 
-    comment_info['user'] = usr_req_res
-    comment_info['post'] = post_req_res
+    comment_info['user'] = usr_req_res.json()
+    comment_info['post'] = post_req_res.json()
     
     return jsonify(comment_info)
 
